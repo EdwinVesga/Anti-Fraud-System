@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AntiFraudTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-09-24T01:26:53" hostname="Edwins-MacBook-Air.local" time="5.007">
+  <properties/>
+  <testcase name="start" classname="AntiFraudTest" time="5.007"/>
+  <system-out><![CDATA[?[1;31m
+Start test 1?[0m
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.3)
+
+2022-09-23 20:26:54.099  INFO 8265 --- [    Test worker] antifraud.AntiFraudApplication           : Starting AntiFraudApplication using Java 17.0.4 on Edwins-MacBook-Air.local with PID 8265 (started by evesga in /Users/evesga/IdeaProjects/Anti-Fraud System/Anti-Fraud System/task)
+2022-09-23 20:26:54.101  INFO 8265 --- [    Test worker] antifraud.AntiFraudApplication           : No active profile set, falling back to 1 default profile: "default"
+2022-09-23 20:26:54.723  INFO 8265 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 28852 (http)
+2022-09-23 20:26:54.731  INFO 8265 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-09-23 20:26:54.731  INFO 8265 --- [    Test worker] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-09-23 20:26:54.774  INFO 8265 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-09-23 20:26:54.774  INFO 8265 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 650 ms
+2022-09-23 20:26:54.835  INFO 8265 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-09-23 20:26:54.947  INFO 8265 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-09-23 20:26:54.952  INFO 8265 --- [    Test worker] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2'. Database available at 'jdbc:h2:file:../service_db'
+2022-09-23 20:26:55.196  INFO 8265 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoint(s) beneath base path '/actuator'
+2022-09-23 20:26:55.227  INFO 8265 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@100eeedc, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@56266bda, org.springframework.security.web.context.SecurityContextPersistenceFilter@553ce348, org.springframework.security.web.header.HeaderWriterFilter@7ff09659, org.springframework.security.web.authentication.logout.LogoutFilter@101c15ad, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@146f3d22, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5c0e2ec, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3e98b933, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@18bb1b88, org.springframework.security.web.session.SessionManagementFilter@5a6f6cac, org.springframework.security.web.access.ExceptionTranslationFilter@dae5e0, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@44976b08]
+2022-09-23 20:26:55.317  INFO 8265 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 28852 (http) with context path ''
+2022-09-23 20:26:55.325  INFO 8265 --- [    Test worker] antifraud.AntiFraudApplication           : Started AntiFraudApplication in 1.385 seconds (JVM running for 1.704)
+Test case
+Testing api: '/api/auth/user'
+request: '{
+   "name": "John Doe 1",
+   "password": "oa3VvqnLxW"
+}'
+Expectations: 'In case of wrong data in request, endpoint must respond with BAD REQUEST  status (400).'
+-----
+2022-09-23 20:26:55.479  INFO 8265 --- [io-28852-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-23 20:26:55.479  INFO 8265 --- [io-28852-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-09-23 20:26:55.480  INFO 8265 --- [io-28852-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2022-09-23 20:26:55.551  WARN 8265 --- [io-28852-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<antifraud.dto.UserDetailResponseDTO> antifraud.controller.UserController.addUser(antifraud.dto.UserDetailRequestDTO): [Field error in object 'userDetailRequestDTO' on field 'username': rejected value [null]; codes [NotBlank.userDetailRequestDTO.username,NotBlank.username,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userDetailRequestDTO.username,username]; arguments []; default message [username]]; default message [must not be blank]] ]
+?[1;31m
+Start test 2?[0m
+Test case
+Testing api: '/api/auth/user'
+request: '{
+   "name": "John Doe 2",
+   "username": "johndoe1"
+}'
+Expectations: 'In case of wrong data in request, endpoint must respond with BAD REQUEST  status (400).'
+-----
+2022-09-23 20:26:55.578  WARN 8265 --- [io-28852-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<antifraud.dto.UserDetailResponseDTO> antifraud.controller.UserController.addUser(antifraud.dto.UserDetailRequestDTO): [Field error in object 'userDetailRequestDTO' on field 'password': rejected value [null]; codes [NotBlank.userDetailRequestDTO.password,NotBlank.password,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userDetailRequestDTO.password,password]; arguments []; default message [password]]; default message [must not be blank]] ]
+?[1;31m
+Start test 3?[0m
+Test case
+Testing api: '/api/auth/user'
+request: '{
+   "name": "John Doe 1",
+   "username": "johndoe1",
+   "password": "oMoa3VvqnLxW"
+}'
+Expectations: 'If user successfully added, endpoint must respond with HTTP CREATED status (201) '
+-----
+?[1;31m
+Start test 4?[0m
+Test case
+Testing api: '/api/auth/list'
+Expectations: 'Endpoint must respond with HTTP OK status (200) and body with array of objects representing the users sorted by ID in ascending order.'
+-----
+?[1;31m
+Start test 5?[0m
+Test case
+Testing api: '/api/auth/list'
+Expectations: 'A user with incorrect credentials is not allowed'
+-----
+?[1;31m
+Start test 6?[0m
+Test case
+Testing api: '/api/auth/list'
+Expectations: 'A user with incorrect credentials is not allowed'
+-----
+?[1;31m
+Start test 7?[0m
+Test case
+Testing api: '/api/antifraud/transaction'
+request: 'amount = 1'
+Expectations: 'Result validating of Transaction must be 'ALLOWED''
+-----
+?[1;31m
+Start test 8?[0m
+2022-09-23 20:26:56.573  INFO 8265 --- [       Thread-5] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2022-09-23 20:26:56.575  INFO 8265 --- [       Thread-5] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2022-09-23 20:26:56.578  WARN 8265 --- [       Thread-5] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [MVStore background writer /Users/evesga/IdeaProjects/Anti-Fraud System/Anti-Fraud System/service_db.mv.db] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.4/java.lang.Object.wait(Native Method)
+ app//org.h2.mvstore.MVStore$BackgroundWriterThread.run(MVStore.java:3768)
+2022-09-23 20:26:56.579  WARN 8265 --- [       Thread-5] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.4/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.4/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.4/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.4/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.4/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.4/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.4/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.4/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.4/java.lang.Thread.run(Thread.java:833)
+2022-09-23 20:26:56.580  WARN 8265 --- [       Thread-5] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-1 connection adder] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.4/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.4/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.4/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.4/java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:460)
+ java.base@17.0.4/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+ java.base@17.0.4/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.4/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.4/java.lang.Thread.run(Thread.java:833)
+2022-09-23 20:26:56.581  WARN 8265 --- [       Thread-5] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [H2-serialization] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.4/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.4/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+ java.base@17.0.4/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base@17.0.4/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+ java.base@17.0.4/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+ java.base@17.0.4/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+ java.base@17.0.4/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+ java.base@17.0.4/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.4/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.4/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.4/java.lang.Thread.run(Thread.java:833)
+2022-09-23 20:26:56.582  WARN 8265 --- [       Thread-5] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [H2-save] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.4/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.4/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+ java.base@17.0.4/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base@17.0.4/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+ java.base@17.0.4/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+ java.base@17.0.4/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+ java.base@17.0.4/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+ java.base@17.0.4/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.4/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.4/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.4/java.lang.Thread.run(Thread.java:833)
+2022-09-23 20:26:56.593  INFO 8265 --- [       Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2022-09-23 20:26:56.637  INFO 8265 --- [       Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.3)
+
+2022-09-23 20:26:56.693  INFO 8265 --- [    Test worker] antifraud.AntiFraudApplication           : Starting AntiFraudApplication using Java 17.0.4 on Edwins-MacBook-Air.local with PID 8265 (started by evesga in /Users/evesga/IdeaProjects/Anti-Fraud System/Anti-Fraud System/task)
+2022-09-23 20:26:56.693  INFO 8265 --- [    Test worker] antifraud.AntiFraudApplication           : No active profile set, falling back to 1 default profile: "default"
+2022-09-23 20:26:56.813  INFO 8265 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 28852 (http)
+2022-09-23 20:26:56.814  INFO 8265 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-09-23 20:26:56.814  INFO 8265 --- [    Test worker] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-09-23 20:26:56.820  INFO 8265 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-09-23 20:26:56.821  INFO 8265 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 127 ms
+2022-09-23 20:26:56.842  INFO 8265 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2022-09-23 20:26:56.847  INFO 8265 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2022-09-23 20:26:56.847  INFO 8265 --- [    Test worker] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2'. Database available at 'jdbc:h2:file:../service_db'
+2022-09-23 20:26:56.913  INFO 8265 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoint(s) beneath base path '/actuator'
+2022-09-23 20:26:56.917  INFO 8265 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2157889c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@65e92505, org.springframework.security.web.context.SecurityContextPersistenceFilter@10ba9780, org.springframework.security.web.header.HeaderWriterFilter@5c316230, org.springframework.security.web.authentication.logout.LogoutFilter@716e6fa5, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@91a1005, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@63636de0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3494a35e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@e97f51c, org.springframework.security.web.session.SessionManagementFilter@41581c3f, org.springframework.security.web.access.ExceptionTranslationFilter@87f6ab5, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6da9541c]
+2022-09-23 20:26:56.942  INFO 8265 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 28852 (http) with context path ''
+2022-09-23 20:26:56.945  INFO 8265 --- [    Test worker] antifraud.AntiFraudApplication           : Started AntiFraudApplication in 0.264 seconds (JVM running for 3.324)
+?[1;31m
+Start test 9?[0m
+Test case
+Testing api: '/api/auth/list'
+Expectations: 'After restart user must exist'
+-----
+2022-09-23 20:26:56.948  INFO 8265 --- [io-28852-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-09-23 20:26:56.948  INFO 8265 --- [io-28852-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-09-23 20:26:56.948  INFO 8265 --- [io-28852-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+?[1;31m
+Start test 10?[0m
+Test case
+Testing api: '/api/auth/user'
+request: '{
+   "name": "John Doe 1",
+   "username": "johndoe1",
+   "password": "oMoa3VvqnLxW"
+}'
+Expectations: 'In case of an attempt to register an existing user, endpoint must respond with HTTP CONFLICT status (409).'
+-----
+?[1;31m
+Start test 11?[0m
+Test case
+Testing api: '/api/auth/user'
+request: '{
+   "name": "John Doe 2",
+   "username": "johndoe2",
+   "password": "oMoa3VvqnLxW"
+}'
+Expectations: 'If user successfully added, endpoint must respond with HTTP CREATED status (201) '
+-----
+?[1;31m
+Start test 12?[0m
+Test case
+Testing api: '/api/auth/list'
+Expectations: 'Endpoint must respond with HTTP OK status (200) and body with array of objects representing the users sorted by ID in ascending order.'
+-----
+?[1;31m
+Start test 13?[0m
+Test case
+Testing api: '/api/antifraud/transaction'
+request: 'amount = 199'
+Expectations: 'Result validating of Transaction must be 'ALLOWED''
+-----
+?[1;31m
+Start test 14?[0m
+Test case
+Testing api: '/api/antifraud/transaction'
+request: 'amount = 200'
+Expectations: 'Result validating of Transaction must be 'ALLOWED''
+-----
+?[1;31m
+Start test 15?[0m
+Test case
+Testing api: '/api/antifraud/transaction'
+request: 'amount = 201'
+Expectations: 'Result validating of Transaction must be 'MANUAL_PROCESSING''
+-----
+?[1;31m
+Start test 16?[0m
+Test case
+Testing api: '/api/antifraud/transaction'
+request: 'amount = 1499'
+Expectations: 'Result validating of Transaction must be 'MANUAL_PROCESSING''
+-----
+?[1;31m
+Start test 17?[0m
+Test case
+Testing api: '/api/antifraud/transaction'
+request: 'amount = 1500'
+Expectations: 'Result validating of Transaction must be 'MANUAL_PROCESSING''
+-----
+?[1;31m
+Start test 18?[0m
+Test case
+Testing api: '/api/antifraud/transaction'
+request: 'amount = 1501'
+Expectations: 'Result validating of Transaction must be 'PROHIBITED''
+-----
+?[1;31m
+Start test 19?[0m
+Test case
+Testing api: '/api/antifraud/transaction'
+request: 'amount = 2000'
+Expectations: 'Result validating of Transaction must be 'PROHIBITED''
+-----
+?[1;31m
+Start test 20?[0m
+Test case
+Testing api: '/api/antifraud/transaction'
+request: 'amount = -1'
+Expectations: 'Response status must be 'Bad request''
+-----
+?[1;31m
+Start test 21?[0m
+Test case
+Testing api: '/api/antifraud/transaction'
+request: 'amount = 0'
+Expectations: 'Response status must be 'Bad request''
+-----
+?[1;31m
+Start test 22?[0m
+Test case
+Testing api: '/api/antifraud/transaction'
+request: 'amount = null'
+Expectations: 'Response status must be 'Bad request''
+-----
+?[1;31m
+Start test 23?[0m
+Test case
+Testing api: '/api/antifraud/transaction'
+request: 'amount = ""'
+Expectations: 'Response status must be 'Bad request''
+-----
+?[1;31m
+Start test 24?[0m
+Test case
+Testing api: '/api/antifraud/transaction'
+request: 'amount = " "'
+Expectations: 'Response status must be 'Bad request''
+-----
+?[1;31m
+Start test 25?[0m
+Test case
+Testing api: '/api/antifraud/transaction'
+request: 'empty body'
+Expectations: 'Response status must be 'Bad request''
+-----
+?[1;31m
+Start test 26?[0m
+Test case
+Testing api: '/api/auth/user'
+request: '/api/auth/user/somebody'
+Expectations: 'If a user is not found, respond with HTTP Not Found status (404).'
+-----
+?[1;31m
+Start test 27?[0m
+Test case
+Testing api: '/api/antifraud/transaction'
+request: 'amount = 2000'
+Expectations: 'Usernames must be case insensitive.'
+-----
+?[1;31m
+Start test 28?[0m
+Test case
+Testing api: '/api/auth/user'
+request: '/api/auth/user/johndoe1'
+Expectations: 'The endpoint must delete the user and respond with HTTP OK status (200)'
+-----
+?[1;31m
+Start test 29?[0m
+Test case
+Testing api: '/api/auth/list'
+Expectations: 'User 'johndoe1' must be delete'
+-----
+?[1;31m
+Start test 30?[0m
+Test case
+Testing api: '/api/auth/list'
+Expectations: 'Usernames must be case insensitive.'
+-----
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
