@@ -1,22 +1,23 @@
 package antifraud.security.model;
 
-import antifraud.entity.User;
+import antifraud.entity.UserDetail;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.Collection;
 import java.util.List;
 
-public class UserDetailImpl implements UserDetails {
+public class AuthUserDetail implements UserDetails {
 
     private String password;
     private String username;
     private List<GrantedAuthority> authorities;
 
-    public UserDetailImpl(User user) {
+    public AuthUserDetail(UserDetail user) {
         this.username = user.getUsername();
         this.password = user.getPassword();
-        this.authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        this.authorities = List.of(new SimpleGrantedAuthority(user.getRol().getName()));
     }
 
     @Override
@@ -31,7 +32,7 @@ public class UserDetailImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
     @Override

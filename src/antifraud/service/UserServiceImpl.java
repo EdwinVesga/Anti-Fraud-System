@@ -3,12 +3,13 @@ package antifraud.service;
 import antifraud.dto.DeleteUserResponseDTO;
 import antifraud.dto.UserDetailRequestDTO;
 import antifraud.dto.UserDetailResponseDTO;
-import antifraud.entity.User;
+import antifraud.entity.UserDetail;
 import antifraud.exception.UserAlreadyExistException;
 import antifraud.exception.UserNotFoundException;
-import antifraud.repository.UserRepository;
+import antifraud.repository.UserDetailRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +19,14 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl {
 
-    private final UserRepository userRepository;
+    private final UserDetailRepository userRepository;
 
     private final ModelMapper modelMapper;
 
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository,
+    public UserServiceImpl(UserDetailRepository userRepository,
                            ModelMapper modelMapper,
                            PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
@@ -35,18 +36,18 @@ public class UserServiceImpl {
 
     public UserDetailResponseDTO saveUser(UserDetailRequestDTO userDetailRequestDTO) {
 
-        try {
-            userDetailRequestDTO.setPassword(passwordEncoder.encode(userDetailRequestDTO.getPassword()));
-            userRepository.addUser(modelMapper.map(userDetailRequestDTO, User.class));
-            User user = userRepository.getUserByUsername(userDetailRequestDTO.getUsername());
-            return new UserDetailResponseDTO(user.getId(), user.getName(), user.getUsername());
-        } catch (Exception e) {
+        if (!userRepository.findByUsername(userDetailRequestDTO.getUsername()).isEmpty()) {
             throw new UserAlreadyExistException();
         }
+
+        userDetailRequestDTO.setPassword(passwordEncoder.encode(userDetailRequestDTO.getPassword()));
+        UserDetail userDetail = userRepository.save(modelMapper.map(userDetailRequestDTO, UserDetail.class));
+
+        return modelMapper.map(userDetail, UserDetailResponseDTO.class);
     }
 
     public List<UserDetailResponseDTO> getUserList() {
-        List<User> users = userRepository.getAllUsers();
+        List<UserDetail> users = userRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
 
         return users.stream()
                 .map(u -> modelMapper.map(u, UserDetailResponseDTO.class))
@@ -54,10 +55,8 @@ public class UserServiceImpl {
     }
 
     public DeleteUserResponseDTO deleteUser(String username) {
-        if (userRepository.deleteUser(username) != 0) {
-            return new DeleteUserResponseDTO(username);
-        }
+        UserDetail userDetail = userRepository.deleteByUsername(username).orElseThrow(() -> new UserNotFoundException());
 
-        throw new UserNotFoundException();
+        return new DeleteUserResponseDTO(userDetail.getUsername());
     }
 }
