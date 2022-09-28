@@ -15,11 +15,12 @@ public interface UserDetailRepository extends JpaRepository<UserDetail, Long> {
 
     UserDetail save(UserDetail userDetail);
 
-    @Query("delete from UserDetail u where u.username=:username")
-    Optional<UserDetail> deleteByUsername(@Param("username") String username);
+    int deleteByUsernameIgnoreCase(String username);
 
     List<UserDetail> findAll(Sort sort);
 
-    @Query("select * from UserDetail u where u.username=:username")
-    Optional<UserDetail> findByUsername(@Param("username") String username);
+    Optional<UserDetail> findByUsernameIgnoreCase(String username);
+
+    @Query("select u from UserDetail u where u.id = 1")
+    Optional<UserDetail> findFirstUser();
 }

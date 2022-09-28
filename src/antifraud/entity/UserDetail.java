@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class UserDetail {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -24,7 +24,7 @@ public class UserDetail {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "rol_id")
     private UserRol rol;
 }

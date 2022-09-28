@@ -1,5 +1,6 @@
 package antifraud.entity;
 
+import antifraud.constant.UserRolType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,10 +13,11 @@ import javax.persistence.*;
 public class UserRol {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name", nullable = false, unique = true)
-    private String name;
+    @Enumerated(value = EnumType.STRING)
+    private UserRolType name;
 
 }

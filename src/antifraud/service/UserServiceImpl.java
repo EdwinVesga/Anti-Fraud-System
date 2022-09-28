@@ -1,9 +1,11 @@
 package antifraud.service;
 
+import antifraud.constant.UserRolType;
 import antifraud.dto.DeleteUserResponseDTO;
 import antifraud.dto.UserDetailRequestDTO;
 import antifraud.dto.UserDetailResponseDTO;
 import antifraud.entity.UserDetail;
+import antifraud.entity.UserRol;
 import antifraud.exception.UserAlreadyExistException;
 import antifraud.exception.UserNotFoundException;
 import antifraud.repository.UserDetailRepository;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,12 +39,14 @@ public class UserServiceImpl {
 
     public UserDetailResponseDTO saveUser(UserDetailRequestDTO userDetailRequestDTO) {
 
-        if (!userRepository.findByUsername(userDetailRequestDTO.getUsername()).isEmpty()) {
+        if (!userRepository.findByUsernameIgnoreCase(userDetailRequestDTO.getUsername()).isEmpty()) {
             throw new UserAlreadyExistException();
         }
 
         userDetailRequestDTO.setPassword(passwordEncoder.encode(userDetailRequestDTO.getPassword()));
-        UserDetail userDetail = userRepository.save(modelMapper.map(userDetailRequestDTO, UserDetail.class));
+        UserDetail userToSave = modelMapper.map(userDetailRequestDTO, UserDetail.class);
+        assignUserRol(userToSave);
+        UserDetail userDetail = userRepository.save(userToSave);
 
         return modelMapper.map(userDetail, UserDetailResponseDTO.class);
     }
@@ -54,9 +59,23 @@ public class UserServiceImpl {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public DeleteUserResponseDTO deleteUser(String username) {
-        UserDetail userDetail = userRepository.deleteByUsername(username).orElseThrow(() -> new UserNotFoundException());
-
+        UserDetail userDetail = userRepository.findByUsernameIgnoreCase(username)
+                .orElseThrow(() -> new UserNotFoundException());
+        userRepository.deleteByUsernameIgnoreCase(username);
         return new DeleteUserResponseDTO(userDetail.getUsername());
+    }
+
+    private void assignUserRol(UserDetail userDetail) {
+        UserRol userRol = new UserRol();
+
+        if (userRepository.findFirstUser().isEmpty()) {
+            userRol.setName(UserRolType.ROLE_ADMINISTRATOR);
+        } else {
+            userRol.setName(UserRolType.ROLE_MERCHANT);
+        }
+
+        userDetail.setRol(userRol);
     }
 }
