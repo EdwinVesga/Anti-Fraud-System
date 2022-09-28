@@ -1,6 +1,6 @@
 package antifraud.entity;
 
-import antifraud.constant.UserRolType;
+import antifraud.constant.UserRoleType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "user_rol")
 @NoArgsConstructor
 @Data
-public class UserRol {
+public class UserRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +18,6 @@ public class UserRol {
 
     @Column(name = "name", nullable = false, unique = true)
     @Enumerated(value = EnumType.STRING)
-    private UserRolType name;
+    private UserRoleType name;
 
 }

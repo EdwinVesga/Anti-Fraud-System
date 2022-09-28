@@ -21,6 +21,12 @@ import javax.servlet.http.HttpServletResponse;
 @EnableWebSecurity
 public class AntiFraudWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
+    private final String[] listUsersRoles = {"ADMINISTRATOR", "SUPPORT"};
+
+    private final String[] deleteUserRoles = {"ADMINISTRATOR"};
+
+    private final String[] antifraudTransactionRoles = {"MERCHANT"};
+
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
@@ -34,9 +40,9 @@ public class AntiFraudWebSecurityConfigurerAdapter extends WebSecurityConfigurer
                 .and()
                 .csrf().disable().headers().frameOptions().disable().and()
                 .authorizeRequests()
-                .mvcMatchers(HttpMethod.GET, "/api/auth/list").authenticated()
-                .mvcMatchers(HttpMethod.DELETE, "/api/auth/user/*").authenticated()
-                .mvcMatchers(HttpMethod.POST, "/api/antifraud/transaction").authenticated()
+                .mvcMatchers(HttpMethod.GET, "/api/auth/list").hasAnyRole(listUsersRoles)
+                .mvcMatchers(HttpMethod.DELETE, "/api/auth/user/*").hasAnyRole(deleteUserRoles)
+                .mvcMatchers(HttpMethod.POST, "/api/antifraud/transaction").hasAnyRole(antifraudTransactionRoles)
                 .mvcMatchers(HttpMethod.POST, "/api/auth/user").permitAll()
                 .anyRequest().permitAll()
                 .and()

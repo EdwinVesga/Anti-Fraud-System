@@ -17,7 +17,7 @@ public class AuthUserDetail implements UserDetails {
     public AuthUserDetail(UserDetail user) {
         this.username = user.getUsername();
         this.password = user.getPassword();
-        this.authorities = List.of(new SimpleGrantedAuthority(user.getRol().getName().name()));
+        this.authorities = List.of(new SimpleGrantedAuthority(user.getRole().getName().name()));
     }
 
     @Override

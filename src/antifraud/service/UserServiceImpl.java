@@ -1,11 +1,11 @@
 package antifraud.service;
 
-import antifraud.constant.UserRolType;
+import antifraud.constant.UserRoleType;
 import antifraud.dto.DeleteUserResponseDTO;
 import antifraud.dto.UserDetailRequestDTO;
 import antifraud.dto.UserDetailResponseDTO;
 import antifraud.entity.UserDetail;
-import antifraud.entity.UserRol;
+import antifraud.entity.UserRole;
 import antifraud.exception.UserAlreadyExistException;
 import antifraud.exception.UserNotFoundException;
 import antifraud.repository.UserDetailRepository;
@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,14 +49,14 @@ public class UserServiceImpl {
         assignUserRol(userToSave);
         UserDetail userDetail = userRepository.save(userToSave);
 
-        return modelMapper.map(userDetail, UserDetailResponseDTO.class);
+        return new UserDetailResponseDTO(userDetail);
     }
 
     public List<UserDetailResponseDTO> getUserList() {
         List<UserDetail> users = userRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
 
         return users.stream()
-                .map(u -> modelMapper.map(u, UserDetailResponseDTO.class))
+                .map(u -> new UserDetailResponseDTO(u))
                 .collect(Collectors.toList());
     }
 
@@ -68,14 +69,14 @@ public class UserServiceImpl {
     }
 
     private void assignUserRol(UserDetail userDetail) {
-        UserRol userRol = new UserRol();
+        UserRole userRole = new UserRole();
 
         if (userRepository.findFirstUser().isEmpty()) {
-            userRol.setName(UserRolType.ROLE_ADMINISTRATOR);
+            userRole.setName(UserRoleType.ROLE_ADMINISTRATOR);
         } else {
-            userRol.setName(UserRolType.ROLE_MERCHANT);
+            userRole.setName(UserRoleType.ROLE_MERCHANT);
         }
 
-        userDetail.setRol(userRol);
+        userDetail.setRole(userRole);
     }
 }

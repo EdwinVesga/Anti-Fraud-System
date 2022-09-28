@@ -1,40 +1,25 @@
 package antifraud.dto;
 
+import antifraud.entity.UserDetail;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@Data
 public class UserDetailResponseDTO {
+
     private Long id;
+
     private String name;
+
     private String username;
 
-    public UserDetailResponseDTO() {
-    }
+    private String role;
 
-    public UserDetailResponseDTO(Long id, String name, String username) {
-        this.id = id;
-        this.name = name;
-        this.username = username;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public UserDetailResponseDTO(UserDetail user) {
+        this.id = user.getId();
+        this.name = user.getName();
+        this.username = user.getUsername();
+        this.role = user.getRole().getName().getRoleName();
     }
 }
