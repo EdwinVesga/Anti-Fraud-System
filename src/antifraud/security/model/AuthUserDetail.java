@@ -1,5 +1,6 @@
 package antifraud.security.model;
 
+import antifraud.constant.UserAccountStatus;
 import antifraud.entity.UserDetail;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,12 +12,17 @@ import java.util.List;
 public class AuthUserDetail implements UserDetails {
 
     private String password;
+
     private String username;
+
+    private UserAccountStatus status;
+
     private List<GrantedAuthority> authorities;
 
     public AuthUserDetail(UserDetail user) {
         this.username = user.getUsername();
         this.password = user.getPassword();
+        this.status = user.getStatus();
         this.authorities = List.of(new SimpleGrantedAuthority(user.getRole().getName().name()));
     }
 
@@ -42,7 +48,7 @@ public class AuthUserDetail implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return UserAccountStatus.UNLOCK.equals(status);
     }
 
     @Override

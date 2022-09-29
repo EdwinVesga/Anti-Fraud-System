@@ -82,7 +82,7 @@ public class UserServiceImpl {
     }
 
     public UserDetailResponseDTO updateUserRol(UpdateRoleRequestDTO updateRoleRequestDTO) {
-        UserDetail userDetail = userRepository.findByUsernameIgnoreCase(updateRoleRequestDTO.getUsername()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        UserDetail userDetail = userRepository.findByUsernameIgnoreCase(updateRoleRequestDTO.getUsername()).orElseThrow(() -> new UserNotFoundException());
 
         if (UserRoleType.ROLE_ADMINISTRATOR.equals(userDetail.getRole().getName())) {
             throw new RoleConflictException();

@@ -21,13 +21,18 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        UserRole administrator = new UserRole();
-        administrator.setName(UserRoleType.ROLE_ADMINISTRATOR);
-        UserRole merchant = new UserRole();
-        merchant.setName(UserRoleType.ROLE_MERCHANT);
-        UserRole support = new UserRole();
-        support.setName(UserRoleType.ROLE_SUPPORT);
+        try {
+            UserRole administrator = new UserRole();
+            administrator.setName(UserRoleType.ROLE_ADMINISTRATOR);
+            UserRole merchant = new UserRole();
+            merchant.setName(UserRoleType.ROLE_MERCHANT);
+            UserRole support = new UserRole();
+            support.setName(UserRoleType.ROLE_SUPPORT);
 
-        userRoleRepository.saveAll(List.of(administrator, merchant, support));
+            userRoleRepository.saveAll(List.of(administrator, merchant, support));
+        } catch (Exception e) {
+
+        }
+
     }
 }

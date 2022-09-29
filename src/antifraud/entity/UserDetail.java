@@ -29,7 +29,7 @@ public class UserDetail {
     @Enumerated(EnumType.STRING)
     private UserAccountStatus status;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "role_id")
     private UserRole role;
 }
