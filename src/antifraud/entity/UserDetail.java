@@ -1,5 +1,6 @@
 package antifraud.entity;
 
+import antifraud.constant.UserAccountStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,7 +25,11 @@ public class UserDetail {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "rol_id")
+    @Column(name="status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UserAccountStatus status;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id")
     private UserRole role;
 }

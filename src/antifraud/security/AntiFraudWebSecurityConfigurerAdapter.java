@@ -23,7 +23,7 @@ public class AntiFraudWebSecurityConfigurerAdapter extends WebSecurityConfigurer
 
     private final String[] listUsersRoles = {"ADMINISTRATOR", "SUPPORT"};
 
-    private final String[] deleteUserRoles = {"ADMINISTRATOR"};
+    private final String administratorRole = "ADMINISTRATOR";
 
     private final String[] antifraudTransactionRoles = {"MERCHANT"};
 
@@ -41,8 +41,10 @@ public class AntiFraudWebSecurityConfigurerAdapter extends WebSecurityConfigurer
                 .csrf().disable().headers().frameOptions().disable().and()
                 .authorizeRequests()
                 .mvcMatchers(HttpMethod.GET, "/api/auth/list").hasAnyRole(listUsersRoles)
-                .mvcMatchers(HttpMethod.DELETE, "/api/auth/user/*").hasAnyRole(deleteUserRoles)
+                .mvcMatchers(HttpMethod.DELETE, "/api/auth/user/*").hasRole(administratorRole)
                 .mvcMatchers(HttpMethod.POST, "/api/antifraud/transaction").hasAnyRole(antifraudTransactionRoles)
+                .mvcMatchers(HttpMethod.PUT, "/api/auth/role").hasRole(administratorRole)
+                .mvcMatchers(HttpMethod.PUT, "/api/auth/access").hasRole(administratorRole)
                 .mvcMatchers(HttpMethod.POST, "/api/auth/user").permitAll()
                 .anyRequest().permitAll()
                 .and()
