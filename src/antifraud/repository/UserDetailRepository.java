@@ -1,7 +1,7 @@
 package antifraud.repository;
 
-import antifraud.entity.UserDetail;
-import antifraud.entity.UserRole;
+import antifraud.entity.auth.UserDetail;
+import antifraud.entity.auth.UserRole;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

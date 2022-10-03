@@ -1,6 +1,6 @@
 package antifraud.dto;
 
-import antifraud.entity.UserDetail;
+import antifraud.entity.auth.UserDetail;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

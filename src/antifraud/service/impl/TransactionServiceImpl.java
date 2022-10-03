@@ -1,8 +1,9 @@
-package antifraud.service;
+package antifraud.service.impl;
 
 import antifraud.constant.TransactionResult;
 import antifraud.dto.TransactionRequestDTO;
 import antifraud.dto.TransactionResponseDTO;
+import antifraud.service.TransactionService;
 import org.springframework.stereotype.Service;
 
 @Service

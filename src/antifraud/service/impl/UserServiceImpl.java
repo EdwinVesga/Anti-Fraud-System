@@ -1,17 +1,16 @@
-package antifraud.service;
+package antifraud.service.impl;
 
 import antifraud.constant.UserAccountStatus;
 import antifraud.constant.UserRoleType;
 import antifraud.dto.*;
-import antifraud.entity.UserDetail;
-import antifraud.entity.UserRole;
+import antifraud.entity.auth.UserDetail;
+import antifraud.entity.auth.UserRole;
 import antifraud.exception.*;
 import antifraud.repository.UserDetailRepository;
 import antifraud.repository.UserRoleRepository;
+import antifraud.service.UserService;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +20,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService {
 
     private final List<UserRoleType> validUpdateRoles = List.of(UserRoleType.ROLE_MERCHANT,
             UserRoleType.ROLE_SUPPORT);

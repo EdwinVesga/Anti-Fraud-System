@@ -1,4 +1,4 @@
-package antifraud.entity;
+package antifraud.entity.auth;
 
 import antifraud.constant.UserAccountStatus;
 import lombok.Data;
