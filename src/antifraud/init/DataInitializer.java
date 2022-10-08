@@ -1,7 +1,7 @@
 package antifraud.init;
 
 import antifraud.constant.UserRoleType;
-import antifraud.entity.UserRole;
+import antifraud.entity.auth.UserRole;
 import antifraud.repository.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

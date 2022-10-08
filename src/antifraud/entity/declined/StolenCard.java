@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "stolen_card")
@@ -16,7 +15,6 @@ public class StolenCard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Column(name = "number")
+    @Column(name = "number", nullable = false, unique = true)
     private String cardNumber;
 }

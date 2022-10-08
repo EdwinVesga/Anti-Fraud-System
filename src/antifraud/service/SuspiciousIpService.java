@@ -12,4 +12,6 @@ public interface SuspiciousIpService {
     List<SuspiciousIpDTO> getSuspiciousIpList();
 
     DeleteSuspiciousIpDTO deleteSuspiciousIp(String ipAddress);
+
+    boolean isSuspiciousIp(String ipAddress);
 }

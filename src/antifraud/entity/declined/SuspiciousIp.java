@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "suspicious_ip")
@@ -16,7 +15,6 @@ public class SuspiciousIp {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Column(name = "ip")
-    private String ipAddress;
+    @Column(name = "ip", nullable = false, unique = true)
+    private String ip;
 }

@@ -8,18 +8,22 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.SecurityFilterChain;
 
 import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
-public class AntiFraudWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+@EnableMethodSecurity
+public class AntiFraudWebSecurityConfigurerAdapter {
 
     private final String[] listUsersRoles = {"ADMINISTRATOR", "SUPPORT"};
 
@@ -30,12 +34,15 @@ public class AntiFraudWebSecurityConfigurerAdapter extends WebSecurityConfigurer
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authenticationProvider(authenticationProvider());
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().authenticationEntryPoint(restAuthenticationEntryPoint())
                 .and()
                 .csrf().disable().headers().frameOptions().disable().and()
@@ -50,11 +57,8 @@ public class AntiFraudWebSecurityConfigurerAdapter extends WebSecurityConfigurer
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
+        return http.build();
     }
 
     @Bean
@@ -65,7 +69,7 @@ public class AntiFraudWebSecurityConfigurerAdapter extends WebSecurityConfigurer
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setPasswordEncoder(passwordEncoder);
+        provider.setPasswordEncoder(passwordEncoder());
         provider.setUserDetailsService(userDetailsService);
         return provider;
     }

@@ -9,4 +9,6 @@ import lombok.NoArgsConstructor;
 public class TransactionResponseDTO {
 
     private TransactionResult result;
+
+    private String info;
 }

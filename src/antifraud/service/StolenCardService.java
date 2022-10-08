@@ -12,4 +12,6 @@ public interface StolenCardService {
     List<StolenCardDTO> getStolenCardList();
 
     DeleteStolenCardDTO deleteStolenCard(String cardNumber);
+
+    boolean isStolenCard(String cardNumber);
 }
