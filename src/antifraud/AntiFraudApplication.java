@@ -12,11 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class AntiFraudApplication {
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
     public ModelMapper getModelMapper() {
         return new ModelMapper();
     }
