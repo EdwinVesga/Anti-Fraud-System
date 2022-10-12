@@ -1,10 +1,14 @@
 package antifraud.dto;
 
+import antifraud.validator.constraints.RegionCodeConstraint;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
+
+import java.time.LocalDateTime;
 
 import static antifraud.constant.Regex.IP_REGEX;
 
@@ -16,9 +20,19 @@ public class TransactionRequestDTO {
     @Positive
     private Long amount;
 
-    @Pattern(regexp = IP_REGEX, message = "invalid ip format")
+    @NotBlank
+    @Pattern(regexp = IP_REGEX)
     private String ip;
 
-    @CreditCardNumber(message="invalid card number format")
+    @NotBlank
+    @CreditCardNumber
     private String number;
+
+    @NotEmpty
+    @RegionCodeConstraint
+    private String region;
+
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-ddTHH:mm:ss")
+    private LocalDateTime date;
 }
