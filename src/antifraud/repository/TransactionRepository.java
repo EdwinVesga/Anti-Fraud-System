@@ -11,6 +11,9 @@ import java.util.List;
 
 @Repository
 public interface TransactionRepository extends CrudRepository<Transaction, Long> {
+    List<Transaction> findAll();
+
+    List<Transaction> findAllByNumber(String number);
 
     @Query("select count(distinct t.region) from Transaction t where t.number = :cardNumber and t.region <> :region and t.date between :fromDate and :toDate")
     Long countByNumberAfterTime(@Param("fromDate") LocalDateTime fromDate, @Param("toDate") LocalDateTime toDate, @Param("cardNumber") String number, @Param("region") String region);

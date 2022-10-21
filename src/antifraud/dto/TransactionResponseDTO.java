@@ -1,6 +1,6 @@
 package antifraud.dto;
 
-import antifraud.constant.TransactionResult;
+import antifraud.constant.TransactionType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TransactionResponseDTO {
 
-    private TransactionResult result;
+    private TransactionType result;
 
     private String info;
 }

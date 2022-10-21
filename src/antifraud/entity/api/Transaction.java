@@ -17,7 +17,7 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long transactionId;
 
     @Column(name = "amount")
     private Long amount;
@@ -33,4 +33,10 @@ public class Transaction {
 
     @Column(name = "date")
     private LocalDateTime date;
+
+    @Column(name = "result")
+    private String result;
+
+    @Column(name = "feedback")
+    private String feedback;
 }
